@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Home } from './Home/Home'
+import { Contact } from './Contact/Contact'
+import { Header } from './Components/Header/Header'
+import { Navigation } from './Components/Navigation/Navigation'
 import './App.css';
+
 
 class App extends Component {
   render() {
     return (
-      <div className="app">
-        <div>
-          <div className="flex">
-            <h1>joshterrill.com</h1>
-            <h2>(sofware engineer)</h2>
+      <Router>
+        <div className="app">
+          <div>
+            <Header />
+            <Navigation />
+            <Route path="/" exact component={Home} />
+            <Route path="/contact/" component={Contact} />
           </div>
-          <ul className="links">
-            <li><a href="https://github.com/joshterrill" target="_blank">Github</a></li>
-            <li><a href="https://redshift.ai" target="_blank">Redshift AI</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
         </div>
-      </div>
+      </Router>
     );
   }
 }
