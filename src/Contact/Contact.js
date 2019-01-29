@@ -6,7 +6,7 @@ export class Contact extends Component {
     return (
       <div className="contact-form-container">
         <h2>Contact</h2>
-        <form class="contact-form" name="contact" method="POST" data-netlify="true">
+        <form class="contact-form" action="/contact/thankyou" name="contact" method="POST" data-netlify="true">
           <input type="text" name="name" placeholder="Name" /> <br />
           <input type="email" name="email" placeholder="Email" /> <br />
           <textarea name="message" placeholder="Message"></textarea> <br />
