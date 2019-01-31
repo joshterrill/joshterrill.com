@@ -9,12 +9,25 @@ import './App.css';
 
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      online: navigator.onLine,
+    };
+  }
+  updateOnlineStatus = (event) => {
+    this.setState({
+      online: navigator.onLine,
+    });
+  }
   render() {
+    window.addEventListener('online',  this.updateOnlineStatus);
+    window.addEventListener('offline', this.updateOnlineStatus);
     return (
       <Router>
         <div className="app">
           <div>
-            <Header />
+            <Header online={this.state.online} />
             <Navigation />
             <Route path="/" exact component={Home} />
             <Route path="/contact" exact component={Contact} />
