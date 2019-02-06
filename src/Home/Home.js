@@ -5,7 +5,7 @@ export class Home extends Component {
     return (
       <div className="home-container">
         <h2>Home</h2>
-        {/* <p>Coming soon....</p> */}
+        <p>Coming soon....</p>
       </div>
     );
   }
