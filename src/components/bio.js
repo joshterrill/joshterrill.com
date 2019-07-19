@@ -21,7 +21,7 @@ function Bio() {
             }}
           >
             <p>
-              Articles on coding, data science, and dalmatians. 
+              Articles on coding and how much I love my dalmatian.
               <br />
               <a target="_new" href={`https://github.com/${social.github}`}>
                 Follow me on github
