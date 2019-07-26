@@ -46,6 +46,10 @@ Writing tests for the client can be a little more tricky, especially single-page
 
 ### 4. Continuous integration + continuous deployment
 
+When you get to a point where you deploy an application to production and you have to manage at least a few different environments that your code needs to run in (i.e. dev, qa/acc, and production) it is extremely valuable to you and the team to implement continuous integration and continuous deployments (CI/CD).
+
+CI/CD gives you the benefit of automating the running and reporting of all of your tests, compiling your code, and deploying it to whatever environment you're running in.
+
       a. multiple environments
       b. hotfixes
       c. rollbacks
