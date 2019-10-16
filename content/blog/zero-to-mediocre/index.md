@@ -1,10 +1,10 @@
 ---
 title: From zero to mediocre
-description: Story of a software team
+description: The story of a software team
 date: "2019-07-10T23:48:03.284Z"
 ---
 
-## 1. Version control and workflow
+## 1. Proper version control workflow
 
 Every project that a software developer works on should be using some sort of version control. The most popular version control system is [Git](https://git-scm.com/), however something like [Subversion](https://subversion.apache.org/) works fine as well - you just need to be using **something**.
 
@@ -20,7 +20,7 @@ Having a good version control workflow is also very important when it comes to b
 
 Being able to interact with your team through their pull requests and being able to reference specific lines of code for praise or critique is a nice thing to have as well. (Github)[https://github.com] and [Gogs](https://gogs.io/) (an open source Github clone) both have the ability to do this.
 
-**How this helped my team**: My team had always used version control, first it was subversion, and then later we switched over to git - but it was still like the wild wild west. We didn't use pull requests, or even branches unless it was deemed a "big enough" feature. This led to tons of code getting released into QA, and many times production, that wasn't complete or buggy. We installed Gogs on an AWS server, moved our projects over to it, created the `master` and `qa` branches, and then locked them down so that no one except the leads could commit to them. This forced the other team members to create branches and do pull requests against `qa` before their code would be merged by one of the two leads on the team. This led to us catching so many issues, whether they be bugs, or misunderstood requirements, before the code ever made it to QA.
+**How this helped my team**: My team had always used version control, first it was subversion, and then later we switched over to git - but it was still like the wild wild west. We didn't use pull requests, or even branches unless it was deemed a "big enough" feature. This led to tons of code getting released into QA (and even sometimes production), that was buggy or incomplete all together. We installed Gogs on an AWS server, moved our projects over to it, created the `master` and `qa` branches, and then locked them down so that only team leads could push to them. This forced the other team members to create branches and do pull requests against `qa` before their code would be merged by one of the two leads on the team. Implementing this workflow allowed us to catch a lot of issues, whether they be bugs, or misunderstood requirements, before the code ever made it to QA.
 
 ![Github pull request feedback example](https://help.github.com/assets/images/help/pull_requests/commit-suggestion-button.png)
 *Example of leaving suggestions on a pull request in Github*
@@ -38,7 +38,7 @@ Getting in the habit of writing unit tests as a part of your development workflo
 
 Writing tests for the client can be a little more tricky, especially single-page applications that frameworks such as React and Angular create. This is due to how much state is managed in the client. I'm personally a fan of writing full integration tests to test the client. Using something like [Cypress](INSERT LINK HERE) allows you to create tests that run your client in a full browser (or headless browser) and gives you a very high-level scripting language to script tests to run through as a user would run through your app.
 
-**How this helped my team**: 
+**How this helped my team**:
 
 ### 4. Linting
       a. Common set of lint rules per language
