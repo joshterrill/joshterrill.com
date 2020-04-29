@@ -6,6 +6,7 @@ module.exports = {
     siteUrl: `https://joshterrill.com`,
     social: {
       twitter: `joshterrill`,
+      halesTwitter: `halebale_`,
       github: `joshterrill`,
       email: `joshterrill.dev@gmail.com`,
     },

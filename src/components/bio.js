@@ -7,6 +7,7 @@
 
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
+import { rhythm } from "../utils/typography"
 
 function Bio() {
   return (
@@ -20,16 +21,17 @@ function Bio() {
               display: `flex`,
             }}
           >
-            <p>
-              Articles on coding and how much I love my dalmatian.
-              <br />
-              <a target="_new" href={`https://github.com/${social.github}`}>
-                Follow me on github
-              </a>
-              {`, `}
-              <a href={`mailto:${social.email}`}>
-                or email me
-              </a>
+            <p style={{
+                marginBottom: rhythm(0.5),
+                fontSize: `0.8rem`,
+                lineHeight: `1.6em`,
+            }}>
+              Co-founder of <a href="https://t-squared.org">T-Squared</a><br />
+              Software Developer at <a href="https://axiallon.com">Axiallon</a><br />
+              Lover of my <a target="_new" href={`https://twitter.com/${social.halesTwitter}`}>girlfriend</a> and <a href="">dalmatian</a> <br />
+              <a target="_new" href={`https://twitter.com/${social.twitter}`}>Twitter</a>,
+              &nbsp;<a target="_new" href={`https://github.com/${social.github}`}>Github</a>,
+              &nbsp;<a href={`mailto:${social.email}`}>Email</a>
             </p>
           </div>
         )

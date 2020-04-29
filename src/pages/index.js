@@ -19,14 +19,23 @@ class BlogIndex extends React.Component {
           keywords={[`blog`, `josh terrill`, `software`, `coding`]}
         />
         <Bio />
+        <nav style={{
+                borderTop: `0px solid #eee`,
+                borderBottom: `1px solid #eee`,
+                padding: `0px 0 0px 0`,
+                textAlign: `center`,
+              }}></nav>
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
             <div key={node.fields.slug}>
               <h3
                 style={{
-                  marginBottom: rhythm(1 / 4),
-                  marginTop: '2rem',
+                  textAlign: `left`,
+                  margin: `0`,
+                  marginTop: rhythm(0.5),
+                  fontFamily: `"Roboto Slab", serif`,
+                  fontSize: `1.6rem`,
                 }}
               >
                 <Link style={{ boxShadow: `none` }} to={node.fields.slug}>

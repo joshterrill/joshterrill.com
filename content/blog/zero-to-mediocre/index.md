@@ -1,10 +1,10 @@
 ---
 title: From zero to mediocre
-description: The story of a software team
+description: The story of an outsourced software team at a startup
 date: "2019-07-10T23:48:03.284Z"
 ---
 
-## 1. Proper version control workflow
+### 1. Proper version control workflow
 
 Every project that a software developer works on should be using some sort of version control. The most popular version control system is [Git](https://git-scm.com/), however something like [Subversion](https://subversion.apache.org/) works fine as well - you just need to be using **something**.
 
@@ -25,7 +25,7 @@ Being able to interact with your team through their pull requests and being able
 ![Github pull request feedback example](https://help.github.com/assets/images/help/pull_requests/commit-suggestion-button.png)
 *Example of leaving suggestions on a pull request in Github*
 
-## 2. Unit tests + integration tests
+### 2. Unit tests + integration tests
 
 Like many other developers that I've spoken with, learning the importance of, and how to write unit tests, was a painful journey, and something that I integrated into my development flow after I had already been coding for a while. For many small companies with small-mid size development teams, unit tests sometimes are something that "would be nice to have" but "just don't have the time" to implement.
 
@@ -40,11 +40,11 @@ Writing tests for the client can be a little more tricky, especially single-page
 
 **How this helped my team**:
 
-### 4. Linting
+#### 4. Linting
       a. Common set of lint rules per language
       b. Extending 
 
-### 4. Continuous integration + continuous deployment
+#### 4. Continuous integration + continuous deployment
 
 When you get to a point where you deploy an application to production and you have to manage at least a few different environments that your code needs to run in (i.e. dev, qa/acc, and production) it is extremely valuable to you and the team to implement continuous integration and continuous deployments (CI/CD).
 
@@ -56,10 +56,10 @@ CI/CD gives you the benefit of automating the running and reporting of all of yo
       d. database management
       e. deploying on a schedule
 
-### 5. Alerts and logging
+#### 5. Alerts and logging
 
-### 6. Bug and feature tracking, and team communication
+#### 6. Bug and feature tracking, and team communication
 
-### 7. 
+#### 7. 
 
 ![Accept Mine](https://i.imgur.com/EdtzEKW.jpg)
