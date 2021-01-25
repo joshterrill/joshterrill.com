@@ -17,11 +17,15 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
         />
-        <h1 style={{
-            color: '#3700ff',
-            fontFamily: `"Roboto Slab", serif`,
-            fontSize: `1.6rem`,
-            }}>{post.frontmatter.title}</h1>
+        <Link to={post.fields.slug}>
+            <h1
+            className="post-title"
+            style={{
+                color: '#3700ff',
+                fontFamily: `"Roboto Slab", serif`,
+                fontSize: `1.6rem`,
+                }}>{post.frontmatter.title}</h1>
+        </Link>
         <p
           style={{
             ...scale(-1 / 5),
@@ -76,6 +80,9 @@ export const pageQuery = graphql`
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       excerpt(pruneLength: 160)
+      fields {
+        slug
+      }
       html
       frontmatter {
         title

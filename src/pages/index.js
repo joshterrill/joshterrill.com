@@ -30,6 +30,7 @@ class BlogIndex extends React.Component {
           return (
             <div key={node.fields.slug}>
               <h3
+                className="post-title"
                 style={{
                   textAlign: `left`,
                   margin: `0`,

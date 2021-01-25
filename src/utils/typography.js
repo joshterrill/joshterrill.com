@@ -22,6 +22,10 @@ Wordpress2016.overrideThemeStyles = () => {
         color: `#3700ff`,
         textDecoration: `none`,
         wordBreak: `break-word`,
+        boxShadow: `none`,
+    },
+    '.post-title': {
+        textDecoration: `underline`,
     },
   }
 }
