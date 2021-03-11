@@ -36,7 +36,7 @@ class BlogIndex extends React.Component {
                   margin: `0`,
                   marginTop: rhythm(0.5),
                   fontFamily: `"Roboto Slab", serif`,
-                  fontSize: `1.6rem`,
+                  fontSize: `1.4rem`,
                 }}
               >
                 <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
@@ -66,7 +66,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+        filter: { frontmatter: { published: { eq: true } } }
+        sort: { fields: [frontmatter___date], order: DESC }
+    ) {
       edges {
         node {
           excerpt

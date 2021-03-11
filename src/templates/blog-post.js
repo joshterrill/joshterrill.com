@@ -23,7 +23,7 @@ class BlogPostTemplate extends React.Component {
             style={{
                 color: '#3700ff',
                 fontFamily: `"Roboto Slab", serif`,
-                fontSize: `1.6rem`,
+                fontSize: `1.4rem`,
                 }}>{post.frontmatter.title}</h1>
         </Link>
         <p
