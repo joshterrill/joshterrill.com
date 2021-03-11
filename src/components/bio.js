@@ -26,9 +26,8 @@ function Bio() {
                 fontSize: `0.8rem`,
                 lineHeight: `1.6em`,
             }}>
-              Co-founder of <a href="https://t-squared.org">T-Squared</a><br />
               Software Developer at <a href="https://axiallon.com">Axiallon</a><br />
-              Lover of my <a target="_new" href={`https://twitter.com/${social.halesTwitter}`}>girlfriend</a> and <a target="_new" href="https://i.imgur.com/wU77LHF.jpg">dalmatian</a> <br />
+              Writings about technology and my <a target="_new" href="https://i.imgur.com/wU77LHF.jpg">dalmatian</a> <br />
               <a target="_new" href={`https://twitter.com/${social.twitter}`}>Twitter</a>,
               &nbsp;<a target="_new" href={`https://github.com/${social.github}`}>Github</a>,
               &nbsp;<a href={`mailto:${social.email}`}>Email</a>
