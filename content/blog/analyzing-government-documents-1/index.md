@@ -7,7 +7,7 @@ published: true
 
 The US government is notorious for passing bills that are so long, no one reads them. We get the "highlights" of what items are in the bill, and many of our representatives vote on that alone. With the passing of the recent "COVID Bill", which is 5,593 pages long, I wanted to find a way to figure out what was in it, and where all the money was going.
 
-An article titled [Too Big to Read: Giant Bill a Leap of Faith for Congress](https://www.usnews.com/news/politics/articles/2020-12-21/too-big-to-read-giant-bill-a-leap-of-faith-for-congress) explains that it is the longest bill in known US history, and it was released for review **2 hours** before congress voted on it.
+An article titled [Too Big to Read: Giant Bill a Leap of Faith for Congress](https://www.usnews.com/news/politics/articles/2020-12-21/too-big-to-read-giant-bill-a-leap-of-faith-for-congress) explains that it is the longest bill in known US history, and it was released for review **2 hours** before the house and senate voted on it.
 
 What can we do about this? We can write some code to extract every mention of a dollar amount as well as look at any mentions of dollar amounts that are going to other countries.
 
