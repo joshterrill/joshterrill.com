@@ -1,11 +1,14 @@
 {
   "name": "joshterrill-blog",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "Website for Josh Terrill, powered by Gatsby",
   "version": "0.0.2",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "authors": [
+    "Kyle Mathews <mathews.kyle@gmail.com>",
+    "Josh Terrill <joshterrill.dev@gmail.com>"
+  ],
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/joshterrill/joshterrill.com/issues"
   },
   "dependencies": {
     "gatsby": "^2.3.3",
@@ -39,7 +42,7 @@
   "devDependencies": {
     "prettier": "^1.16.4"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://github.com/joshterrill/joshterrill.com-starter-blog#readme",
   "keywords": [
     "gatsby"
   ],
@@ -47,7 +50,7 @@
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git+https://github.com/joshterrill/joshterrill.com-starter-blog.git"
   },
   "scripts": {
     "build": "gatsby build",

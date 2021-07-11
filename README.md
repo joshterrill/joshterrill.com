@@ -8,6 +8,8 @@
   Gatsby's blog starter
 </h1>
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4e7504f0-d766-483f-b427-897b37609a5f/deploy-status)](https://app.netlify.com/sites/quirky-mirzakhani-0f7d79/deploys)
+
 Kick off your project with this blog boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
 
 _Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
