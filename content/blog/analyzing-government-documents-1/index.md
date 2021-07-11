@@ -62,7 +62,7 @@ for row in text.split("\n"):
 
 ```
 
-The last step in our text processesingm is to split the entire document up into an array of complete sentences. I didn't know how to do this initially (like I said above, I'm not great at regex), so [I asked on StackOverflow](https://stackoverflow.com/questions/65769689/regex-find-all-complete-sentences-in-a-string) and a person named [Mitchell Olislagers](https://stackoverflow.com/users/14877544/mitchell-olislagers) answered my question.
+The last step in our text processing is to split the entire document up into an array of complete sentences. I didn't know how to do this initially (like I said above, I'm not great at regex), so [I asked on StackOverflow](https://stackoverflow.com/questions/65769689/regex-find-all-complete-sentences-in-a-string) and a person named [Mitchell Olislagers](https://stackoverflow.com/users/14877544/mitchell-olislagers) answered my question.
 
 ```python
 regex = "(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s"
