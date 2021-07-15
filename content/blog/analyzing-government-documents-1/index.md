@@ -7,15 +7,15 @@ published: true
 
 The US government is notorious for passing bills that are so long, no one reads them. We get the "highlights" of what items are in the bill, and many of our representatives vote on that alone. With the passing of the recent "COVID Bill", which is 5,593 pages long, I wanted to find a way to figure out what was in it, and where all the money was going.
 
-An article titled [Too Big to Read: Giant Bill a Leap of Faith for Congress](https://www.usnews.com/news/politics/articles/2020-12-21/too-big-to-read-giant-bill-a-leap-of-faith-for-congress) explains that it is the longest bill in known US history, and it was released for review **2 hours** before the house and senate voted on it.
+An article titled <a href="https://www.usnews.com/news/politics/articles/2020-12-21/too-big-to-read-giant-bill-a-leap-of-faith-for-congress" target="_blank">Too Big to Read: Giant Bill a Leap of Faith for Congress</a> explains that it is the longest bill in known US history, and it was released for review **2 hours** before the house and senate voted on it.
 
 What can we do about this? We can write some code to extract every mention of a dollar amount as well as look at any mentions of dollar amounts that are going to other countries.
 
 ### Step 1 - Cleaning up the document
 
-All US bills are published online at https://rules.house.gov in PDF format. This bill can be found here: https://rules.house.gov/sites/democrats.rules.house.gov/files/BILLS-116HR133SA-RCP-116-68.pdf
+All US bills are published online at <a href="https://rules.house.gov" target="_blank">https://rules.house.gov</a> in PDF format. This bill can be found here: <a href="https://rules.house.gov/sites/democrats.rules.house.gov/files/BILLS-116HR133SA-RCP-116-68.pdf" target="_blank">https://rules.house.gov/sites/democrats.rules.house.gov/files/BILLS-116HR133SA-RCP-116-68.pdf</a>
 
-And I found a mirror of it that allowed me to download a text version of it here: https://beta.documentcloud.org/documents/20433443-bills-116hr133sa-rcp-116-68
+And I found a mirror of it that allowed me to download a text version of it here: <a href="https://beta.documentcloud.org/documents/20433443-bills-116hr133sa-rcp-116-68" target="_blank">https://beta.documentcloud.org/documents/20433443-bills-116hr133sa-rcp-116-68</a>
 
 Now we can load the document into a python script and begin cleaning the data.
 
@@ -62,7 +62,7 @@ for row in text.split("\n"):
 
 ```
 
-The last step in our text processing is to split the entire document up into an array of complete sentences. I didn't know how to do this initially (like I said above, I'm not great at regex), so [I asked on StackOverflow](https://stackoverflow.com/questions/65769689/regex-find-all-complete-sentences-in-a-string) and a person named [Mitchell Olislagers](https://stackoverflow.com/users/14877544/mitchell-olislagers) answered my question.
+The last step in our text processing is to split the entire document up into an array of complete sentences. I didn't know how to do this initially (like I said above, I'm not great at regex), so <a href="https://stackoverflow.com/questions/65769689/regex-find-all-complete-sentences-in-a-string" target="new">I asked on StackOverflow</a> and a person named <a hre="https://stackoverflow.com/users/14877544/mitchell-olislagers" target="new">Mitchell Olislagers</a> answered my question.
 
 ```python
 regex = "(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s"
@@ -90,7 +90,7 @@ def write_money_references_to_file():
 
 I thought it might be interesting to also check where dollar amounts and names of non-US countries might be referenced. It's a very similar process to the above method, except we need to get a list of all non-US countries, and add another condition to our if statement.
 
-There are many lists of countries online, this is the one I used: https://gist.github.com/incredimike/1469814
+There are many lists of countries online, this is the one I used: <a href="https://gist.github.com/incredimike/1469814" target="new">https://gist.github.com/incredimike/1469814</a>
 
 So now you save it into a txt file, read from it, and add another loop.
 
@@ -123,12 +123,11 @@ This obviously isn't perfect. One issue I still see is that there are some very 
 
 ### Source code
 
-All of the code for this, including the bill text file, countries list, and HTML files can be found on my Github here: https://github.com/joshterrill/covid-relief-bill-dollar-amounts/
+All of the code for this, including the bill text file, countries list, and HTML files can be found on my Github here: <a href="https://github.com/joshterrill/covid-relief-bill-dollar-amounts/" target="_blank">https://github.com/joshterrill/covid-relief-bill-dollar-amounts/</a>
 
 The static HTML files can be viewed via:
 
-https://rawcdn.githack.com/joshterrill/covid-relief-bill-dollar-amounts/cb661d00170c1109776e105dde13e8331764f92b/referenced-dollars.html
-
-https://rawcdn.githack.com/joshterrill/covid-relief-bill-dollar-amounts/cb661d00170c1109776e105dde13e8331764f92b/referenced-countries.html
+* <a target="_blank" href="https://rawcdn.githack.com/joshterrill/covid-relief-bill-dollar-amounts/cb661d00170c1109776e105dde13e8331764f92b/referenced-dollars.html">https://rawcdn.githack.com/joshterrill/covid-relief-bill-dollar-amounts/cb661d00170c1109776e105dde13e8331764f92b/referenced-dollars.html</a>
+* <a target="_blank" href="https://rawcdn.githack.com/joshterrill/covid-relief-bill-dollar-amounts/cb661d00170c1109776e105dde13e8331764f92b/referenced-countries.html">https://rawcdn.githack.com/joshterrill/covid-relief-bill-dollar-amounts/cb661d00170c1109776e105dde13e8331764f92b/referenced-countries.html</a>
 
 Pull requests and thoughts are welcome.
