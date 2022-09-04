@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Source+Code+Pro:wght@400&display=swap');
+
+html {
+    font-family: 'Source Code Pro', monospace;
+    height: 100%;
+    width: 100%;
+    filter: contrast(130%) brightness(150%);
+    background-size: cover;
+    background: 
+        linear-gradient(299deg, rgba(0,0,255,0.58), rgba(0,0,0,0)),
+        conic-gradient(from 171deg at -50% 65%, rgba(0,255,0,1), rgba(94,0,255,0.11)),
+        linear-gradient(5deg, rgba(234,0,255,1), rgba(23,214,28,0.3)),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='30.36' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        /* url(http://199.231.169.155:8080/mjpg/video.mjpg) */
+}
+
+.wrapper {
+    max-width: 700px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.container {
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    background: white;
+    background-size: cover !important;
+    border-radius: 10px;
+}
+
+.container-inner {
+  background: white;
+  padding: 2px;
+  background-size: cover !important;
+}
+
+.camera-1:after {
+    opacity: 0.3;
+}
+
+.container-inner * {
+    background: rgb(169, 24, 46);
+    width: fit-content;
+}
+
+.wave-1 {
+    background: url('./images/1.png');
+}
+
+.wave-2 {
+    background: url('./images/2.png');
+}
+
+.wave-3 {
+    background: url('./images/3.png');
+}
+
+/* 
+TODO: replace
+*/
+.camera-1 {
+    background: url(http://216.237.224.142/mjpg/video.mjpg?timestamp=1662251570374);
+    background-position: bottom;
+} 
+
+.camera-2 {
+    background: url(http://199.231.169.155:8080/mjpg/video.mjpg);
+    background-position: bottom;
+}
+
+.camera-3 {
+    background: url(http://198.150.19.245/mjpg/video.mjpg);
+    background-position: bottom;
+
+}
+
+.camera-4 {
+    background: url(http://67.17.174.50:8001/mjpg/video.mjpg);
+    background-position: bottom;
+
+}
+
+
+.transparent-1 {
+    opacity: 0.1;
+}
+.transparent-2 {
+    opacity: 0.2;
+}
+.transparent-3 {
+    opacity: 0.3;
+}
+.transparent-4 {
+    opacity: 0.4;
+}
+.transparent-5 {
+    opacity: 0.5;
+}
+.transparent-6 {
+    opacity: 0.6;
+}
+.transparent-7 {
+    opacity: 0.7;
+}
+.transparent-8 {
+    opacity: 0.8;
+}
+.transparent-9 {
+    opacity: 0.9;
+}
+
+.title {
+    font-family: 'Press Start 2P', cursive;
+}
+
+h2 {
+    font-size: 22px;
+}
+
+.generated-hash {
+    mix-blend-mode: overlay;
+    width: fit-content;
+    color: #5f5f5f4d;
+    font-size: 14px;
+    margin: auto;
+    position: fixed;
+    bottom: 4px;
+    left: 6px;
+}
+
+
+.flex ul {
+    text-align: center;
+    display: contents;
+  }
+
+.flex li {
+    font-size: 15px;
+    margin: 0 10px;
+    line-height: 60px;
+    display: inline-block;
+  }
+
+.song .container-inner {
+    text-align: center;
+    margin: auto;
+    width: fit-content;
+}
+
+.song .artist {
+    font-family: cursive;
+    font-size: 15px;
+}
+
+  .song * {
+    font-size: 12px;
+  }
