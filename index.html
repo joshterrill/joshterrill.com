@@ -8,46 +8,41 @@
 
     <!-- Primary Meta Tags -->
     <title>Josh Terrill</title>
-    <meta name="title" content="My personal website.">
+    <meta name="title" content="Josh Terrill">
     <meta name="description" content="Welcome to my website!">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://joshterrill.com">
-    <meta property="og:title" content="My personal website.">
+    <meta property="og:title" content="Josh Terrill">
     <meta property="og:description" content="Welcome to my website!">
     <meta property="og:image" content="https://joshterrill.com/placeholder-social.jpg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://joshterrill.com">
-    <meta property="twitter:title" content="My personal website.">
+    <meta property="twitter:title" content="Josh Terrill">
     <meta property="twitter:description" content="Welcome to my website!">
     <meta property="twitter:image" content="https://joshterrill.com/placeholder-social.jpg">
 
     <link rel="stylesheet" href="theme.css" />
-    <style>
-        body {
-            background: #1d1e26;
-            margin: 0
+    <script>
+        function updateHeading(isHover) {
+            if (isHover) {
+                document.querySelector('h1.drac-heading').innerHTML = 'J☠sh Terrill';
+            } else {
+                document.querySelector('h1.drac-heading').innerHTML = 'Josh Terrill';
+            }
         }
-
-        .container {
-            max-width: 600px;
-            margin: auto;
-        }
-
-        a.link {
-            text-decoration: none;
-            color: initial;
-        }
-    </style>
+    </script>
 </head>
 
 <body>
     <div class="container">
-        <h1 class="drac-heading drac-heading-2xl drac-text-white">Josh Terrill</h1>
-        <p class="drac-text drac-text-pink">Software engineer, hacker</p>
+        <h1 class="drac-heading drac-heading-2xl drac-text-white" aria-label="Josh Terrill" onmouseover="updateHeading(true)" onmouseleave="updateHeading(false)">
+            Josh Terrill
+        </h1>
+        <p class="drac-text drac-text-pink description">Software engineer, hacker</p>
         <a class="link" href="https://github.com/joshterrill">
             <div class="drac-box drac-bg-purple-cyan drac-rounded drac-p-sm drac-my-xxs">
                 <span class="drac-text drac-line-height drac-text-black-light">Github</span>
@@ -60,10 +55,10 @@
         </a>
         <a class="link" href="https://hacked.codes">
             <div class="drac-box drac-bg-yellow-pink drac-rounded drac-p-sm drac-my-xxs">
-                <span class="drac-text drac-line-height drac-text-black-light">Hacked Codes Blog</span>
+                <span class="drac-text drac-line-height drac-text-black-light">hacked.codes Blog + Newsletter</span>
             </div>
         </a>
-        <a class="link" href="https://hacked.codes">
+        <a class="link" href="javascript:alert('Coming soon...')">
             <div class="drac-box drac-bg-cyan-green drac-rounded drac-p-sm drac-my-xxs">
                 <span class="drac-text drac-line-height drac-text-black-light">Public Projects</span>
             </div>
