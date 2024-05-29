@@ -41,3 +41,14 @@ a.link {
         text-shadow: 2px 0.5px 2px #ea36af, -1px -0.5px 2px #75fa69;
     }
 }
+
+.projects {
+    margin: 0;
+    border-top: none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.projects a {
+    color: cyan;
+}

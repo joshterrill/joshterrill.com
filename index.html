@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <!-- Global Metadata -->
     <meta charset="utf-8">
@@ -21,6 +22,7 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://joshterrill.com">
+    <meta name="twitter:creator" content="@joshterrill" />
     <meta property="twitter:title" content="Josh Terrill">
     <meta property="twitter:description" content="The personal website of Josh Terrill - software engineer, hacker">
     <meta property="twitter:image" content="https://joshterrill.com/social.jpeg">
@@ -28,8 +30,22 @@
     <link rel="stylesheet" href="/theme.css" />
     <script>
         function updateHeading() {
-            document.querySelector('h1.drac-heading span').innerHTML = 'J<span class="skull">☠</span>sh Terrill';
+            document.querySelector('h1.drac-heading').innerHTML = 'J<span class="skull">☠</span>sh Terrill';
         }
+        function toggleProjects() {
+            if (window.location.hash !== '#open') {
+                window.location.hash = 'open';
+                document.querySelector('.projects').style.display = 'block';
+            } else {
+                history.replaceState({}, document.title, window.location.href.split('#')[0]);
+                document.querySelector('.projects').style.display = 'none';
+            }
+        }
+        window.onload = () => {
+            if (window.location.hash === '#open') {
+                document.querySelector('.projects').style.display = 'block';
+            }
+        };
     </script>
 </head>
 
@@ -54,11 +70,54 @@
                 <span class="drac-text drac-line-height drac-text-black-light">hacked.codes Blog</span>
             </div>
         </a>
-        <a class="link" href="javascript:alert('Coming soon...')">
+        <a class="link" href="javascript:toggleProjects()">
             <div class="drac-box drac-bg-cyan-green drac-rounded drac-p-sm drac-my-xxs">
-                <span class="drac-text drac-line-height drac-text-black-light">Public Projects</span>
+                <span class="drac-text drac-line-height drac-text-black-light"><em>Some</em> Open Source Projects</span>
             </div>
         </a>
+        <div variant="subtle" class="projects drac-box drac-card drac-card-subtle drac-border-cyan drac-bg-pink drac-p-md drac-m-md" style="display:none;">
+            <span class="drac-text drac-line-height drac-text-white">Hushnote <small>(<a class="link" href="https://hush.dangerous.dev/">Link</a>, <a class="link" href="https://github.com/joshterrill/hushnote">Code</a>)</small></span>
+            <div class="drac-box">
+                <ul class="drac-list drac-list-unordered drac-list-purple">
+                    <li class="drac-text drac-text-white">A Privnote-like web application with a REST API, allowing users to send self-destructing messages</li>
+                </ul>
+            </div>
+            <hr />
+            <span class="drac-text drac-line-height drac-text-white">Paywall Reader <small>(<a class="link" href="https://reader.dangerous.dev/">Link</a>, <a class="link" href="https://github.com/joshterrill/paywall-reader">Code</a>)</small></span>
+            <div class="drac-box">
+                <ul class="drac-list drac-list-unordered drac-list-purple">
+                    <li class="drac-text drac-text-white">A web application that allows users to bypass paywalls on popular news websites</li>
+                </ul>
+            </div>
+            <hr />
+            <span class="drac-text drac-line-height drac-text-white">Free WHOIS <small>(<a class="link" href="https://npmjs.com/package/freewhois">Link</a>, <a class="link" href="https://github.com/joshterrill/freewhois">Code</a>)</small></span>
+            <div class="drac-box">
+                <ul class="drac-list drac-list-unordered drac-list-purple">
+                    <li class="drac-text drac-text-white">A CLI tool and API that allows users to get WHOIS information for free</li>
+                </ul>
+            </div>
+            <hr />
+            <span class="drac-text drac-line-height drac-text-white">Public Bookmarks <small>(<a class="link" href="https://bookmarks.dangerous.dev/">Link</a>, <a class="link" href="https://github.com/joshterrill/public-bookmarks">Code</a>)</small></span>
+            <div class="drac-box">
+                <ul class="drac-list drac-list-unordered drac-list-purple">
+                    <li class="drac-text drac-text-white">A REST API for syncing and sharing your bookmarks</li>
+                </ul>
+            </div>
+            
+            <hr />
+            <span class="drac-text drac-line-height drac-text-white">integrity.js <small>(<a class="link" href="https://integrity.dangerous.dev/">Link</a>, <a class="link" href="https://github.com/joshterrill/integrity-web">Code</a>)</small></span>
+            <div class="drac-box">
+                <ul class="drac-list drac-list-unordered drac-list-purple">
+                    <li class="drac-text drac-text-white">A client/server SDK that allows website owners to know if threat actors have tampered with the client-side code of their website in an attempt to scam their customers</li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            <div class="footer">
+                <p class="drac-text drac-text-white drac-text-sm drac-text-center"></p>
+            </div>
+        </footer>
     </div>
 </body>
+
 </html>
