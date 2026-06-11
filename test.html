@@ -1,0 +1,621 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Rounded Cube Glass Dent</title>
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255, 60, 90, 0.45), transparent 28%),
+        radial-gradient(circle at 85% 25%, rgba(60, 120, 255, 0.42), transparent 30%),
+        radial-gradient(circle at 50% 85%, rgba(255, 180, 60, 0.42), transparent 32%),
+        linear-gradient(135deg, #f8f8f8, #e8e8ef);
+      font-family: system-ui, sans-serif;
+    }
+
+    .background-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,0,0,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.07) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glass-panel {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      width: 68vw;
+      height: 68vh;
+      transform: translate(-50%, -50%);
+      border-radius: 36px;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.48);
+      box-shadow:
+        0 24px 90px rgba(0,0,0,0.16),
+        inset 0 1px 0 rgba(255,255,255,0.8),
+        inset 0 -1px 0 rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px) saturate(1.25);
+      -webkit-backdrop-filter: blur(10px) saturate(1.25);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /*
+      This canvas draws only the soft pressure/depression field.
+      It is not another object. It sits on the glass and creates
+      shadow/highlight curvature under the moving cube silhouette.
+    */
+    #dentCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: multiply;
+    }
+
+    #highlightCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: screen;
+    }
+
+    #plot {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 3;
+    }
+  </style>
+
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+
+<body>
+  <div class="background-grid"></div>
+  <div class="glass-panel"></div>
+  <canvas id="dentCanvas"></canvas>
+  <canvas id="highlightCanvas"></canvas>
+  <div id="plot"></div>
+
+  <script>
+    const N = 80;
+    const half = 1.0;
+    const cornerRadius = 0.22;
+    const stride = 3;
+
+    function linspace(start, end, n) {
+      const arr = [];
+      const step = (end - start) / (n - 1);
+      for (let i = 0; i < n; i++) arr.push(start + step * i);
+      return arr;
+    }
+
+    const s = linspace(-1, 1, N);
+
+    function roundedBoxPoint(x, y, z) {
+      const r = cornerRadius;
+      const inner = half - r;
+
+      const px = Math.max(-inner, Math.min(inner, x));
+      const py = Math.max(-inner, Math.min(inner, y));
+      const pz = Math.max(-inner, Math.min(inner, z));
+
+      const dx = x - px;
+      const dy = y - py;
+      const dz = z - pz;
+
+      const len = Math.sqrt(dx * dx + dy * dy + dz * dz);
+      if (len === 0) return [x, y, z];
+
+      return [
+        px + r * dx / len,
+        py + r * dy / len,
+        pz + r * dz / len
+      ];
+    }
+
+    function makeFace(axis, sign) {
+      const x = [];
+      const y = [];
+      const z = [];
+
+      for (let i = 0; i < N; i += stride) {
+        const xr = [];
+        const yr = [];
+        const zr = [];
+
+        for (let j = 0; j < N; j += stride) {
+          const a = s[j];
+          const b = s[i];
+
+          let x0, y0, z0;
+
+          if (axis === "z") {
+            x0 = a;
+            y0 = b;
+            z0 = sign * half;
+          } else if (axis === "x") {
+            x0 = sign * half;
+            y0 = a;
+            z0 = b;
+          } else if (axis === "y") {
+            x0 = a;
+            y0 = sign * half;
+            z0 = b;
+          }
+
+          const p = roundedBoxPoint(x0, y0, z0);
+
+          xr.push(p[0]);
+          yr.push(p[1]);
+          zr.push(p[2]);
+        }
+
+        x.push(xr);
+        y.push(yr);
+        z.push(zr);
+      }
+
+      return { x, y, z };
+    }
+
+    const traces = [];
+
+    const faces = [
+      ["z",  1], ["z", -1],
+      ["x",  1], ["x", -1],
+      ["y",  1], ["y", -1]
+    ];
+
+    for (const [axis, sign] of faces) {
+      const face = makeFace(axis, sign);
+
+      traces.push({
+        type: "surface",
+        x: face.x,
+        y: face.y,
+        z: face.z,
+        surfacecolor: face.z,
+        colorscale: "RdBu",
+        reversescale: true,
+        opacity: 0.9,
+        showscale: false,
+        hoverinfo: "skip"
+      });
+
+      const rows = face.x.length;
+      const cols = face.x[0].length;
+
+      for (let r = 0; r < rows; r++) {
+        traces.push({
+          type: "scatter3d",
+          mode: "lines",
+          x: face.x[r],
+          y: face.y[r],
+          z: face.z[r],
+          line: { color: "black", width: 1.35 },
+          showlegend: false,
+          hoverinfo: "skip"
+        });
+      }
+
+      for (let c = 0; c < cols; c++) {
+        const xs = [];
+        const ys = [];
+        const zs = [];
+
+        for (let r = 0; r < rows; r++) {
+          xs.push(face.x[r][c]);
+          ys.push(face.y[r][c]);
+          zs.push(face.z[r][c]);
+        }
+
+        traces.push({
+          type: "scatter3d",
+          mode: "lines",
+          x: xs,
+          y: ys,
+          z: zs,
+          line: { color: "black", width: 1.35 },
+          showlegend: false,
+          hoverinfo: "skip"
+        });
+      }
+    }
+
+    const layout = {
+      width: window.innerWidth,
+      height: window.innerHeight,
+      margin: { l: 0, r: 0, t: 0, b: 0 },
+      scene: {
+        aspectmode: "cube",
+        bgcolor: "rgba(0,0,0,0)",
+        xaxis: {
+          visible: false,
+          backgroundcolor: "rgba(0,0,0,0)",
+          gridcolor: "rgba(0,0,0,0)",
+          zerolinecolor: "rgba(0,0,0,0)"
+        },
+        yaxis: {
+          visible: false,
+          backgroundcolor: "rgba(0,0,0,0)",
+          gridcolor: "rgba(0,0,0,0)",
+          zerolinecolor: "rgba(0,0,0,0)"
+        },
+        zaxis: {
+          visible: false,
+          backgroundcolor: "rgba(0,0,0,0)",
+          gridcolor: "rgba(0,0,0,0)",
+          zerolinecolor: "rgba(0,0,0,0)"
+        },
+        camera: {
+          eye: { x: 2.4, y: -2.7, z: 1.8 }
+        }
+      },
+      paper_bgcolor: "rgba(0,0,0,0)",
+      plot_bgcolor: "rgba(0,0,0,0)"
+    };
+
+    const config = {
+      responsive: true,
+      displayModeBar: false,
+      scrollZoom: false
+    };
+
+    Plotly.newPlot("plot", traces, layout, config);
+
+    const dentCanvas = document.getElementById("dentCanvas");
+    const highlightCanvas = document.getElementById("highlightCanvas");
+    const dentCtx = dentCanvas.getContext("2d");
+    const highlightCtx = highlightCanvas.getContext("2d");
+
+    function resizeCanvases() {
+      const dpr = window.devicePixelRatio || 1;
+
+      for (const canvas of [dentCanvas, highlightCanvas]) {
+        canvas.width = Math.floor(window.innerWidth * dpr);
+        canvas.height = Math.floor(window.innerHeight * dpr);
+        canvas.style.width = window.innerWidth + "px";
+        canvas.style.height = window.innerHeight + "px";
+
+        const ctx = canvas.getContext("2d");
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+    }
+
+    resizeCanvases();
+
+    let rotX = 0.75;
+    let rotY = 0.75;
+    let rotZ = 0.0;
+
+    let velX = 0.00025;
+    let velY = 0.00035;
+    let velZ = 0.00010;
+
+    let mouseVX = 0;
+    let mouseVY = 0;
+
+    let lastMouseX = window.innerWidth / 2;
+    let lastMouseY = window.innerHeight / 2;
+    let lastPlotUpdate = 0;
+
+    function cameraFromRotation(rx, ry, rz) {
+      const radius = 4.5;
+
+      let x = radius * Math.cos(rx) * Math.sin(ry);
+      let y = radius * Math.sin(rx);
+      let z = radius * Math.cos(rx) * Math.cos(ry);
+
+      const cz = Math.cos(rz);
+      const sz = Math.sin(rz);
+
+      return {
+        x: x * cz - y * sz,
+        y: x * sz + y * cz,
+        z
+      };
+    }
+
+    function rotatePoint(p, rx, ry, rz) {
+      let [x, y, z] = p;
+
+      let cx = Math.cos(rx), sx = Math.sin(rx);
+      let cy = Math.cos(ry), sy = Math.sin(ry);
+      let cz = Math.cos(rz), sz = Math.sin(rz);
+
+      let y1 = y * cx - z * sx;
+      let z1 = y * sx + z * cx;
+      y = y1;
+      z = z1;
+
+      let x2 = x * cy + z * sy;
+      let z2 = -x * sy + z * cy;
+      x = x2;
+      z = z2;
+
+      let x3 = x * cz - y * sz;
+      let y3 = x * sz + y * cz;
+
+      return [x3, y3, z];
+    }
+
+    function convexHull(points) {
+      points = points
+        .slice()
+        .sort((a, b) => a.x === b.x ? a.y - b.y : a.x - b.x);
+
+      function cross(o, a, b) {
+        return (a.x - o.x) * (b.y - o.y) -
+               (a.y - o.y) * (b.x - o.x);
+      }
+
+      const lower = [];
+      for (const p of points) {
+        while (
+          lower.length >= 2 &&
+          cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0
+        ) {
+          lower.pop();
+        }
+        lower.push(p);
+      }
+
+      const upper = [];
+      for (let i = points.length - 1; i >= 0; i--) {
+        const p = points[i];
+        while (
+          upper.length >= 2 &&
+          cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0
+        ) {
+          upper.pop();
+        }
+        upper.push(p);
+      }
+
+      upper.pop();
+      lower.pop();
+
+      return lower.concat(upper);
+    }
+
+    function buildProjectedSilhouette() {
+      const samples = [];
+
+      const vals = [];
+      for (let i = 0; i <= 16; i++) vals.push(-1 + 2 * i / 16);
+
+      for (const x of vals) {
+        for (const y of vals) {
+          for (const z of [-1, 1]) {
+            samples.push(roundedBoxPoint(x, y, z));
+          }
+        }
+      }
+
+      for (const x of vals) {
+        for (const z of vals) {
+          for (const y of [-1, 1]) {
+            samples.push(roundedBoxPoint(x, y, z));
+          }
+        }
+      }
+
+      for (const y of vals) {
+        for (const z of vals) {
+          for (const x of [-1, 1]) {
+            samples.push(roundedBoxPoint(x, y, z));
+          }
+        }
+      }
+
+      const projected = [];
+
+      for (const p of samples) {
+        const r = rotatePoint(p, rotX, rotY, rotZ);
+
+        const scale = 112;
+        const perspective = 1.0 / (1.0 + (r[2] + 1.5) * 0.07);
+
+        projected.push({
+          x: window.innerWidth / 2 + r[0] * scale * perspective,
+          y: window.innerHeight / 2 - r[1] * scale * perspective
+        });
+      }
+
+      return convexHull(projected);
+    }
+
+    function polygonCenter(poly) {
+      let x = 0;
+      let y = 0;
+
+      for (const p of poly) {
+        x += p.x;
+        y += p.y;
+      }
+
+      return {
+        x: x / poly.length,
+        y: y / poly.length
+      };
+    }
+
+    function expandPolygon(poly, amount) {
+      const c = polygonCenter(poly);
+
+      return poly.map(p => {
+        const dx = p.x - c.x;
+        const dy = p.y - c.y;
+        const len = Math.sqrt(dx * dx + dy * dy) || 1;
+
+        return {
+          x: p.x + dx / len * amount,
+          y: p.y + dy / len * amount
+        };
+      });
+    }
+
+    function drawPath(ctx, poly) {
+      if (!poly.length) return;
+
+      ctx.beginPath();
+      ctx.moveTo(poly[0].x, poly[0].y);
+
+      for (let i = 1; i < poly.length; i++) {
+        ctx.lineTo(poly[i].x, poly[i].y);
+      }
+
+      ctx.closePath();
+    }
+
+    function drawGlassDent() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      dentCtx.clearRect(0, 0, w, h);
+      highlightCtx.clearRect(0, 0, w, h);
+
+      const silhouette = buildProjectedSilhouette();
+      const outer = expandPolygon(silhouette, 34);
+      const middle = expandPolygon(silhouette, 16);
+      const inner = expandPolygon(silhouette, -8);
+
+      /*
+        Dark broad pressure field: makes the glass look pushed inward.
+      */
+      dentCtx.save();
+      dentCtx.filter = "blur(34px)";
+      drawPath(dentCtx, outer);
+      dentCtx.fillStyle = "rgba(0, 0, 0, 0.22)";
+      dentCtx.fill();
+      dentCtx.restore();
+
+      /*
+        Inner soft depression directly under the cube.
+      */
+      dentCtx.save();
+      dentCtx.filter = "blur(14px)";
+      drawPath(dentCtx, middle);
+      dentCtx.fillStyle = "rgba(0, 0, 0, 0.16)";
+      dentCtx.fill();
+      dentCtx.restore();
+
+      /*
+        Bottom-right compression shadow.
+      */
+      dentCtx.save();
+      dentCtx.translate(14, 18);
+      dentCtx.filter = "blur(18px)";
+      drawPath(dentCtx, inner);
+      dentCtx.fillStyle = "rgba(0, 0, 0, 0.20)";
+      dentCtx.fill();
+      dentCtx.restore();
+
+      /*
+        Top-left raised rim highlight.
+      */
+      highlightCtx.save();
+      highlightCtx.translate(-14, -16);
+      highlightCtx.filter = "blur(16px)";
+      drawPath(highlightCtx, middle);
+      highlightCtx.strokeStyle = "rgba(255, 255, 255, 0.72)";
+      highlightCtx.lineWidth = 18;
+      highlightCtx.stroke();
+      highlightCtx.restore();
+
+      /*
+        Thin specular rim close to the exact projected cube outline.
+      */
+      highlightCtx.save();
+      highlightCtx.filter = "blur(3px)";
+      drawPath(highlightCtx, silhouette);
+      highlightCtx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+      highlightCtx.lineWidth = 3;
+      highlightCtx.stroke();
+      highlightCtx.restore();
+    }
+
+    window.addEventListener("mousemove", (e) => {
+      const dx = e.clientX - lastMouseX;
+      const dy = e.clientY - lastMouseY;
+
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+
+      mouseVX += dx * 0.00003;
+      mouseVY += dy * 0.00003;
+    });
+
+    function animate(t) {
+      const time = t * 0.001;
+
+      const randomX =
+        0.00018 * Math.sin(time * 0.71) +
+        0.00011 * Math.sin(time * 1.37);
+
+      const randomY =
+        0.00015 * Math.sin(time * 0.53) +
+        0.00010 * Math.sin(time * 1.91);
+
+      const randomZ =
+        0.00012 * Math.sin(time * 0.83) +
+        0.00008 * Math.sin(time * 1.43);
+
+      velY += mouseVX;
+      velX += mouseVY;
+
+      velX += randomX;
+      velY += randomY;
+      velZ += randomZ;
+
+      velX *= 0.992;
+      velY *= 0.992;
+      velZ *= 0.995;
+
+      mouseVX *= 0.92;
+      mouseVY *= 0.92;
+
+      rotX += velX;
+      rotY += velY;
+      rotZ += velZ;
+
+      drawGlassDent();
+
+      if (t - lastPlotUpdate > 33) {
+        lastPlotUpdate = t;
+
+        Plotly.relayout("plot", {
+          "scene.camera.eye": cameraFromRotation(rotX, rotY, rotZ)
+        });
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+
+    window.addEventListener("resize", () => {
+      resizeCanvases();
+      Plotly.Plots.resize("plot");
+      drawGlassDent();
+    });
+  </script>
+</body>
+</html>

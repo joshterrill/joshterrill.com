@@ -2,129 +2,190 @@
 <html lang="en">
 
 <head>
-    <!-- Global Metadata -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Josh Terrill</title>
 
-    <!-- Primary Meta Tags -->
-    <title>Josh Terrill</title>
-    <meta name="title" content="Josh Terrill">
-    <meta name="description" content="The personal website of Josh Terrill - software engineer, hacker">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://joshterrill.com">
-    <meta property="og:title" content="Josh Terrill">
-    <meta property="og:description" content="The personal website of Josh Terrill - software engineer, hacker">
-    <meta property="og:image" content="https://joshterrill.com/social.jpeg">
+    html,
+    body {
+      margin: 0;
+      background: white;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #050505;
+    }
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://joshterrill.com">
-    <meta name="twitter:creator" content="@joshterrill" />
-    <meta property="twitter:title" content="Josh Terrill">
-    <meta property="twitter:description" content="The personal website of Josh Terrill - software engineer, hacker">
-    <meta property="twitter:image" content="https://joshterrill.com/social.jpeg">
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    <link rel="stylesheet" href="/theme.css" />
-    <script>
-        function updateHeading() {
-            document.querySelector('h1.drac-heading').innerHTML = 'J<span class="skull">☠</span>sh Terrill';
-        }
-        function toggleProjects() {
-            if (window.location.hash !== '#open') {
-                window.location.hash = 'open';
-                document.querySelector('.projects').style.display = 'block';
-            } else {
-                history.replaceState({}, document.title, window.location.href.split('#')[0]);
-                document.querySelector('.projects').style.display = 'none';
-            }
-        }
-        window.onload = () => {
-            if (window.location.hash === '#open') {
-                document.querySelector('.projects').style.display = 'block';
-            }
-        };
-    </script>
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 32px;
+      padding: 0 0 24px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    #plot {
+      width: 80px;
+      height: 80px;
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #050505;
+    }
+
+    .brand-subtitle {
+      margin-top: 6px;
+      font-family: "Apple Chancery", "Brush Script MT", "Segoe Script", cursive;
+      font-size: 15px;
+      font-weight: 400;
+      color: #444;
+      letter-spacing: 0.01em;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-shrink: 0;
+      font-size: 15px;
+      font-weight: 500;
+      color: #222;
+    }
+
+    .content {
+      margin-top: 20px;
+    }
+
+    .content h2 {
+      margin: 0 0 20px;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .content p {
+      margin: 0 0 16px;
+      font-size: 16px;
+      line-height: 1.65;
+      color: #333;
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 32px 20px 48px;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+
+      #plot {
+        width: 64px;
+        height: 64px;
+      }
+
+      .brand-title {
+        font-size: 24px;
+      }
+
+      .brand-subtitle {
+        font-size: 14px;
+      }
+
+      .nav {
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .content {
+        margin-top: 32px;
+      }
+    }
+  </style>
+
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="drac-heading drac-heading-2xl drac-text-white" aria-label="Josh Terrill">
-            <span onmouseover="updateHeading()">Josh Terrill</span>
-        </h1>
-        <p class="drac-text drac-text-pink description">Software engineer, hacker</p>
-        <a class="link" href="https://github.com/joshterrill">
-            <div class="drac-box drac-bg-purple-cyan drac-rounded drac-p-sm drac-my-xxs">
-                <span class="drac-text drac-line-height drac-text-black-light">Github</span>
-            </div>
-        </a>
-        <a class="link" href="https://twitter.com/joshterrill">
-            <div class="drac-box drac-bg-pink-purple drac-rounded drac-p-sm drac-my-xxs">
-                <span class="drac-text drac-line-height drac-text-black-light">Twitter</span>
-            </div>
-        </a>
-        <a class="link" href="https://hacked.codes">
-            <div class="drac-box drac-bg-yellow-pink drac-rounded drac-p-sm drac-my-xxs">
-                <span class="drac-text drac-line-height drac-text-black-light">hacked.codes Blog</span>
-            </div>
-        </a>
-        <a class="link" href="javascript:toggleProjects()">
-            <div class="drac-box drac-bg-cyan-green drac-rounded drac-p-sm drac-my-xxs">
-                <span class="drac-text drac-line-height drac-text-black-light"><em>Some</em> Projects</span>
-            </div>
-        </a>
-        <div variant="subtle" class="projects drac-box drac-card drac-card-subtle drac-border-cyan drac-bg-pink drac-p-md drac-m-md" style="display:none;">
-            <span class="drac-text drac-line-height drac-text-white">Hushnote <small>(<a class="link" href="https://hush.dangerous.dev/">Link</a>, <a class="link" href="https://github.com/joshterrill/hushnote">Code</a>)</small></span>
-            <div class="drac-box">
-                <ul class="drac-list drac-list-unordered drac-list-purple">
-                    <li class="drac-text drac-text-white">A Privnote-like web application with a REST API, allowing users to send self-destructing messages</li>
-                </ul>
-            </div>
-            <hr />
-            <span class="drac-text drac-line-height drac-text-white">Paywall Reader <small>(<a class="link" href="https://reader.dangerous.dev/">Link</a>, <a class="link" href="https://github.com/joshterrill/paywall-reader">Code</a>)</small></span>
-            <div class="drac-box">
-                <ul class="drac-list drac-list-unordered drac-list-purple">
-                    <li class="drac-text drac-text-white">A web application that allows users to bypass paywalls on popular news websites</li>
-                </ul>
-            </div>
-            <hr />
-            <span class="drac-text drac-line-height drac-text-white">Dino Digest <small>(<a class="link" href="https://dinodigest.email/">Link</a>)</small></span>
-            <div class="drac-box">
-                <ul class="drac-list drac-list-unordered drac-list-purple">
-                    <li class="drac-text drac-text-white">Receive a weekly, tailored email digest with a summary of emails you've received this week based on custom-set rules you create</li>
-                </ul>
-            </div>
-            <hr />
-            <span class="drac-text drac-line-height drac-text-white">Free WHOIS <small>(<a class="link" href="https://npmjs.com/package/freewhois">Link</a>, <a class="link" href="https://github.com/joshterrill/freewhois">Code</a>)</small></span>
-            <div class="drac-box">
-                <ul class="drac-list drac-list-unordered drac-list-purple">
-                    <li class="drac-text drac-text-white">A CLI tool and API that allows users to get WHOIS information for free</li>
-                </ul>
-            </div>
-            <hr />
-            <span class="drac-text drac-line-height drac-text-white">Public Bookmarks <small>(<a class="link" href="https://bookmarks.dangerous.dev/">Link</a>, <a class="link" href="https://github.com/joshterrill/public-bookmarks">Code</a>)</small></span>
-            <div class="drac-box">
-                <ul class="drac-list drac-list-unordered drac-list-purple">
-                    <li class="drac-text drac-text-white">A REST API for syncing and sharing your bookmarks</li>
-                </ul>
-            </div>
-            
-            <hr />
-            <span class="drac-text drac-line-height drac-text-white">integrity.js <small>(<a class="link" href="https://integrity.dangerous.dev/">Link</a>, <a class="link" href="https://github.com/joshterrill/integrity-web">Code</a>)</small></span>
-            <div class="drac-box">
-                <ul class="drac-list drac-list-unordered drac-list-purple">
-                    <li class="drac-text drac-text-white">A client/server SDK that allows website owners to know if threat actors have tampered with the client-side code of their website in an attempt to scam their customers</li>
-                </ul>
-            </div>
+  <div class="page">
+    <header class="header">
+      <div class="brand">
+        <div id="plot"></div>
+        <div class="brand-text">
+          <h1 class="brand-title">Josh Terrill</h1>
+          <div class="brand-subtitle">Reverse engineering, research, security</div>
         </div>
-        <footer>
-            <div class="footer">
-                <p class="drac-text drac-text-white drac-text-sm drac-text-center"></p>
-            </div>
-        </footer>
-    </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#research">Blog</a>
+        <a href="#code">Projects</a>
+        <a href="#datasets">Research / Datasets</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main class="content">
+      <h2>About</h2>
+      <p>
+        A software engineer and security researcher, living in Alameda, CA.
+      </p>
+      <p>
+        I'm interested in projects at the intersection of 
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+    </main>
+  </div>
+
+  <script src="/complicatedjsfileforastupidanimation.js"></script>
 </body>
 
 </html>
