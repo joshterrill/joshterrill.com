@@ -53,9 +53,25 @@ a.external {
     height: 80px;
     flex: 0 0 auto;
     transform-origin: center center;
+    position: relative;
+}
+
+.plot-placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+}
+
+#plot-wrap.plot-ready .plot-placeholder {
+    display: none;
 }
 
 #plot {
+    position: relative;
+    z-index: 1;
     width: 100%;
     height: 100%;
 }

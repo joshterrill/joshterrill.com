@@ -143,6 +143,29 @@ for (const [axis, sign] of faces) {
   }
 }
 
+let rotX = 0.75;
+let rotY = 0.75;
+let rotZ = 0.0;
+
+function cameraFromRotation(rx, ry, rz) {
+  const radius = 2.1;
+
+  let x = radius * Math.cos(rx) * Math.sin(ry);
+  let y = radius * Math.sin(rx);
+  let z = radius * Math.cos(rx) * Math.cos(ry);
+
+  const cz = Math.cos(rz);
+  const sz = Math.sin(rz);
+
+  return {
+    x: x * cz - y * sz,
+    y: x * sz + y * cz,
+    z
+  };
+}
+
+const initialCameraEye = cameraFromRotation(rotX, rotY, rotZ);
+
 const layout = {
   autosize: true,
   margin: { l: 0, r: 0, t: 0, b: 0 },
@@ -165,7 +188,7 @@ const layout = {
       autorange: false
     },
     camera: {
-      eye: { x: 1.18, y: -1.34, z: 0.88 },
+      eye: initialCameraEye,
       center: { x: 0, y: 0, z: 0 }
     }
   },
@@ -179,11 +202,10 @@ const config = {
   scrollZoom: false
 };
 
-Plotly.newPlot("plot", traces, layout, config);
-
-let rotX = 0.75;
-let rotY = 0.75;
-let rotZ = 0.0;
+Plotly.newPlot("plot", traces, layout, config).then(() => {
+  document.getElementById("plot-wrap")?.classList.add("plot-ready");
+  requestAnimationFrame(animate);
+});
 
 let velX = 0.00025;
 let velY = 0.00035;
@@ -195,23 +217,6 @@ let mouseVY = 0;
 let lastMouseX = window.innerWidth / 2;
 let lastMouseY = window.innerHeight / 2;
 let lastUpdate = 0;
-
-function cameraFromRotation(rx, ry, rz) {
-  const radius = 2.1;
-
-  let x = radius * Math.cos(rx) * Math.sin(ry);
-  let y = radius * Math.sin(rx);
-  let z = radius * Math.cos(rx) * Math.cos(ry);
-
-  const cz = Math.cos(rz);
-  const sz = Math.sin(rz);
-
-  return {
-    x: x * cz - y * sz,
-    y: x * sz + y * cz,
-    z
-  };
-}
 
 const mouseSensitivity = 0.00001;
 
@@ -268,8 +273,6 @@ function animate(t) {
 
   requestAnimationFrame(animate);
 }
-
-requestAnimationFrame(animate);
 
 window.addEventListener("resize", () => {
   Plotly.Plots.resize("plot");

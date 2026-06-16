@@ -14,15 +14,17 @@
   <meta property="og:url" content="https://joshterrill.com">
   <meta property="og:title" content="Josh Terrill">
   <meta property="og:description" content="The personal website of Josh Terrill - software engineer, hacker">
-  <meta property="og:image" content="https://joshterrill.com/social.jpeg">
+  <meta property="og:image" content="https://joshterrill.com/me.jpg">
 
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://joshterrill.com">
   <meta name="twitter:creator" content="@joshterrill" />
   <meta property="twitter:title" content="Josh Terrill">
   <meta property="twitter:description" content="The personal website of Josh Terrill - software engineer, hacker">
-  <meta property="twitter:image" content="https://joshterrill.com/social.jpeg">
-  <link rel="stylesheet" href="/theme.css" />
+  <meta property="twitter:image" content="https://joshterrill.com/me.jpg">
+
+  <link rel="stylesheet" href="/assets/theme.css" />
+  <link rel="preload" href="/assets/cube-placeholder.webp" as="image" type="image/png" fetchpriority="high" />
 </head>
 
 <body>
@@ -30,6 +32,7 @@
     <header class="header">
       <div class="brand">
         <div id="plot-wrap">
+          <img id="plot-placeholder" class="plot-placeholder" src="/assets/cube-placeholder.webp" alt="" width="80" height="80" decoding="async" fetchpriority="high" />
           <div id="plot"></div>
         </div>
         <div class="brand-text">
@@ -60,8 +63,7 @@
       <p>More to come.</p>
     </main>
   </div>
-  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-  <script src="/complicatedjsfileforastupidanimation.js"></script>
+  <script src="/assets/cube-loader.js" defer></script>
 </body>
 
 </html>
